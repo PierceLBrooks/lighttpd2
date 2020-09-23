@@ -88,4 +88,14 @@ struct liSocketAddress {
 	liSockAddr *addr;
 };
 
+#if !defined SHUT_RD && defined SD_RECEIVE
+# define SHUT_RD SD_RECEIVE
+#endif
+#if !defined SHUT_WR && defined SD_SEND
+# define SHUT_WR SD_SEND
+#endif
+#if !defined SHUT_RDWR && defined SD_BOTH
+# define SHUT_RDWR SD_BOTH
+#endif
+
 #endif

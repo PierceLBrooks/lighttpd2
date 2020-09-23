@@ -9,6 +9,39 @@
 # include <crypt.h>
 #endif
 
+#if defined _WIN32
+struct iovec {
+void *iov_base;
+size_t iov_len;
+};
+struct msghdr {
+void    *   msg_name;   /* Socket name          */
+int     msg_namelen;    /* Length of name       */
+struct iovec *  msg_iov;    /* Data blocks          */
+size_t msg_iovlen; /* Number of blocks     */
+void    *   msg_control;    /* Per protocol magic (eg BSD file descriptor passing) */
+size_t msg_controllen; /* Length of cmsg list */
+void    *   msg_accrights;
+size_t msg_accrightslen;
+unsigned int    msg_flags;
+};
+/* For recvmmsg/sendmmsg */
+struct mmsghdr {
+struct msghdr   msg_hdr;
+unsigned int        msg_len;
+};
+/*
+*  POSIX 1003.1g - ancillary data object information
+*  Ancillary data consits of a sequence of pairs of
+*  (cmsghdr, cmsg_data[])
+*/
+struct cmsghdr {
+size_t cmsg_len;   /* data byte count, including hdr */
+int     cmsg_level; /* originating protocol */
+int     cmsg_type;  /* protocol-specific type */
+};
+#endif
+
 /* for send/li_receive_fd */
 union fdmsg {
   struct cmsghdr h;

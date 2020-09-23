@@ -91,7 +91,9 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <unistd.h>
+#ifndef _WIN32
 #include <sys/wait.h>
+#endif
 
 #if defined(LIGHTY_OS_LINUX)
 # include <sched.h>
